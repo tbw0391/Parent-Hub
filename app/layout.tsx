@@ -7,7 +7,10 @@ export const metadata: Metadata = {
   description: 'Articles, polls, prayer & praise, lessons, schedule, and chat for parents.',
   manifest: '/manifest.json',
   icons: {
-    icon: '/icons/icon-192.png',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icons/icon-192.png', type: 'image/png' },
+    ],
     apple: '/icons/icon-192.png',
   },
 };
