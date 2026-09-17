@@ -1,5 +1,5 @@
 # Parent Hub
-Todd Wilson
+
 A PWA for parents: Articles, Polls, Prayer & Praise, Lessons, Schedule, and Chat (group + 1:1).
 Built with Next.js 15 (App Router) + Supabase (auth, Postgres, Realtime), meant to deploy on
 Vercel. Installability comes from a hand-written `public/sw.js` + `public/manifest.json` rather
