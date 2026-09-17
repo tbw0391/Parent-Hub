@@ -1,9 +1,10 @@
 import Link from 'next/link';
-import { getCurrentProfile } from '@/lib/auth';
+import { getCurrentProfile, hasRole } from '@/lib/auth';
 import { NAV } from '@/lib/nav';
 
 export default async function HomePage() {
   const profile = await getCurrentProfile();
+  const items = NAV.filter((item) => !item.minRole || hasRole(profile, item.minRole));
 
   return (
     <div className="flex flex-col gap-6 py-6">
@@ -15,7 +16,7 @@ export default async function HomePage() {
       </div>
 
       <nav className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-        {NAV.map((item) => {
+        {items.map((item) => {
           const Icon = item.icon;
           return (
             <Link

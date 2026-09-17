@@ -21,6 +21,7 @@ export interface Profile {
   city: string | null;
   state: string | null;
   zip: string | null;
+  disabled_at: string | null;
   created_at: string;
 }
 
@@ -58,6 +59,16 @@ export interface Lesson {
   description: string | null;
   attachment_url: string | null;
   attachment_type: string | null;
+  created_at: string;
+}
+
+export interface TechRecommendation {
+  id: string;
+  author_id: string;
+  name: string;
+  description: string | null;
+  url: string | null;
+  platform: string | null;
   created_at: string;
 }
 
