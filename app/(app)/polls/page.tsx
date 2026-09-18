@@ -107,18 +107,23 @@ export default async function PollsPage() {
                           aria-hidden
                         />
                         <span className="relative flex justify-between">
-                          <span className="flex items-center gap-1.5">
-                            {poll.allow_multiple && (
-                              <span
-                                className={
-                                  'flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded border ' +
-                                  (isMine ? 'border-acid bg-acid' : 'border-acidDim/50')
-                                }
-                                aria-hidden
-                              >
-                                {isMine && <span className="h-1.5 w-1.5 rounded-sm bg-ground" />}
-                              </span>
-                            )}
+                          <span className="flex items-center gap-2">
+                            <span
+                              className={
+                                'flex h-3.5 w-3.5 shrink-0 items-center justify-center border ' +
+                                (poll.allow_multiple ? 'rounded' : 'rounded-full') + ' ' +
+                                (isMine ? 'border-acid bg-acid' : 'border-acidDim/50')
+                              }
+                              aria-hidden
+                            >
+                              {isMine && (
+                                <span
+                                  className={
+                                    'bg-ground ' + (poll.allow_multiple ? 'h-1.5 w-1.5 rounded-sm' : 'h-1.5 w-1.5 rounded-full')
+                                  }
+                                />
+                              )}
+                            </span>
                             {option.label}
                           </span>
                           <span className="text-acidDim">
