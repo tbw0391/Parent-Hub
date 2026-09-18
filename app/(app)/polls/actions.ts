@@ -83,6 +83,7 @@ export async function castVote(formData: FormData) {
   }
 
   revalidatePath('/polls');
+  revalidatePath('/', 'layout');
 }
 
 export async function setPollClosed(formData: FormData) {
@@ -103,6 +104,7 @@ export async function setPollClosed(formData: FormData) {
 
   if (error) throw new Error(error.message);
   revalidatePath('/polls');
+  revalidatePath('/', 'layout');
 }
 
 export async function deletePoll(formData: FormData) {
@@ -118,4 +120,5 @@ export async function deletePoll(formData: FormData) {
   const { error } = await supabase.from('polls').delete().eq('id', poll_id);
   if (error) throw new Error(error.message);
   revalidatePath('/polls');
+  revalidatePath('/', 'layout');
 }
