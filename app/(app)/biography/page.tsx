@@ -13,7 +13,7 @@ function formatDate(iso: string) {
   return new Date(iso + 'T00:00:00').toLocaleDateString(undefined, { month: 'long', day: 'numeric' });
 }
 
-export default async function ParentsPage() {
+export default async function BiographyPage() {
   const supabase = await createClient();
   const me = await getCurrentProfile();
 
@@ -55,8 +55,8 @@ export default async function ParentsPage() {
 
   return (
     <div className="flex flex-col gap-6 py-6">
-      <h1 className="text-xl font-semibold text-acid">Parents</h1>
-      <p className="text-sm text-acidDim">Everyone signed up for Parent Hub.</p>
+      <h1 className="text-xl font-semibold text-acid">Biography</h1>
+      <p className="text-sm text-acidDim">Everyone signed up for Parent Hub, and their kids.</p>
 
       <div className="flex flex-col gap-3">
         {profiles.length ? (

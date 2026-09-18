@@ -54,7 +54,7 @@ export async function updateUserRole(formData: FormData) {
   }
 
   revalidatePath('/admin');
-  revalidatePath('/parents');
+  revalidatePath('/biography');
   revalidatePath('/chat');
 }
 
@@ -74,7 +74,7 @@ export async function setUserDisabled(formData: FormData) {
   if (error) throw new Error(error.message);
 
   revalidatePath('/admin');
-  revalidatePath('/parents');
+  revalidatePath('/biography');
 }
 
 export async function deleteArticle(formData: FormData) {
