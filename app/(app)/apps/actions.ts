@@ -24,3 +24,18 @@ export async function createAppRecommendation(formData: FormData) {
   if (error) throw new Error(error.message);
   revalidatePath('/apps');
 }
+
+export async function deleteAppRecommendation(formData: FormData) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not signed in');
+
+  const app_id = String(formData.get('app_id') ?? '');
+  if (!app_id) throw new Error('Missing app');
+
+  const { error } = await supabase.from('app_recommendations').delete().eq('id', app_id);
+  if (error) throw new Error(error.message);
+  revalidatePath('/apps');
+}

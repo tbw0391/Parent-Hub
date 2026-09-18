@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
-import { getCurrentProfile } from '@/lib/auth';
+import { getCurrentProfile, hasRole } from '@/lib/auth';
 import type { AppRecommendation } from '@/lib/database.types';
-import { createAppRecommendation } from './actions';
+import { createAppRecommendation, deleteAppRecommendation } from './actions';
 
 export default async function AppsPage() {
   const supabase = await createClient();
@@ -11,6 +11,7 @@ export default async function AppsPage() {
     .select('*')
     .order('created_at', { ascending: false });
   const apps = (appsData as AppRecommendation[] | null) ?? [];
+  const canManage = hasRole(profile, 'power_user');
 
   return (
     <div className="flex flex-col gap-6 py-6">
@@ -57,7 +58,17 @@ export default async function AppsPage() {
         {apps.length ? (
           apps.map((app) => (
             <div key={app.id} className="rounded-lg border border-acidDim/20 bg-panel p-4">
-              <h3 className="text-base font-medium text-ink">{app.name}</h3>
+              <div className="flex items-baseline justify-between gap-2">
+                <h3 className="text-base font-medium text-ink">{app.name}</h3>
+                {canManage && (
+                  <form action={deleteAppRecommendation}>
+                    <input type="hidden" name="app_id" value={app.id} />
+                    <button type="submit" className="text-xs font-medium text-red-500 hover:text-red-600">
+                      Delete
+                    </button>
+                  </form>
+                )}
+              </div>
               {app.description && <p className="mt-2 text-sm text-acidDim">{app.description}</p>}
               {(app.apple_url || app.android_url) && (
                 <div className="mt-2 flex gap-4">
