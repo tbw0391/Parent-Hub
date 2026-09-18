@@ -12,14 +12,14 @@ export async function createAppRecommendation(formData: FormData) {
 
   const name = String(formData.get('name') ?? '').trim();
   const description = String(formData.get('description') ?? '').trim() || null;
-  const url = String(formData.get('url') ?? '').trim() || null;
-  const platform = String(formData.get('platform') ?? '').trim() || null;
+  const apple_url = String(formData.get('apple_url') ?? '').trim() || null;
+  const android_url = String(formData.get('android_url') ?? '').trim() || null;
 
   if (!name) throw new Error('App name is required');
 
   const { error } = await supabase
     .from('app_recommendations')
-    .insert({ author_id: user.id, name, description, url, platform });
+    .insert({ author_id: user.id, name, description, apple_url, android_url });
 
   if (error) throw new Error(error.message);
   revalidatePath('/apps');

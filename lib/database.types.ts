@@ -77,8 +77,8 @@ export interface AppRecommendation {
   author_id: string;
   name: string;
   description: string | null;
-  url: string | null;
-  platform: string | null;
+  apple_url: string | null;
+  android_url: string | null;
   created_at: string;
 }
 

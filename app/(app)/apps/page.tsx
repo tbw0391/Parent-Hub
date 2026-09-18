@@ -38,20 +38,15 @@ export default async function AppsPage() {
             className="rounded-md border border-acidDim/40 bg-ground px-3 py-2 text-ink outline-none focus:border-acid"
           />
           <input
-            name="url"
-            placeholder="Link (optional)"
+            name="apple_url"
+            placeholder="Apple App Store link (optional)"
             className="rounded-md border border-acidDim/40 bg-ground px-3 py-2 text-ink outline-none focus:border-acid"
           />
-          <select
-            name="platform"
-            defaultValue=""
+          <input
+            name="android_url"
+            placeholder="Google Play link (optional)"
             className="rounded-md border border-acidDim/40 bg-ground px-3 py-2 text-ink outline-none focus:border-acid"
-          >
-            <option value="">Platform (optional)</option>
-            <option value="ios">iOS</option>
-            <option value="android">Android</option>
-            <option value="web">Web</option>
-          </select>
+          />
           <button type="submit" className="self-start rounded-md bg-pumpkin px-4 py-2 text-sm font-medium text-ground">
             Recommend
           </button>
@@ -62,22 +57,31 @@ export default async function AppsPage() {
         {apps.length ? (
           apps.map((app) => (
             <div key={app.id} className="rounded-lg border border-acidDim/20 bg-panel p-4">
-              <div className="flex items-baseline justify-between gap-2">
-                <h3 className="text-base font-medium text-ink">{app.name}</h3>
-                {app.platform && (
-                  <span className="whitespace-nowrap text-xs uppercase text-teal-500">{app.platform}</span>
-                )}
-              </div>
+              <h3 className="text-base font-medium text-ink">{app.name}</h3>
               {app.description && <p className="mt-2 text-sm text-acidDim">{app.description}</p>}
-              {app.url && (
-                <a
-                  href={app.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-2 inline-block text-sm text-acid underline"
-                >
-                  Open →
-                </a>
+              {(app.apple_url || app.android_url) && (
+                <div className="mt-2 flex gap-4">
+                  {app.apple_url && (
+                    <a
+                      href={app.apple_url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-sm text-acid underline"
+                    >
+                      App Store →
+                    </a>
+                  )}
+                  {app.android_url && (
+                    <a
+                      href={app.android_url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-sm text-acid underline"
+                    >
+                      Google Play →
+                    </a>
+                  )}
+                </div>
               )}
             </div>
           ))
