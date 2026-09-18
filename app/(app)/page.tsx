@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { getCurrentProfile, hasRole } from '@/lib/auth';
 import { NAV } from '@/lib/nav';
+import { PollBanner } from '@/components/PollBanner';
+import { PrayerPraiseBanner } from '@/components/PrayerPraiseBanner';
 
 export default async function HomePage() {
   const profile = await getCurrentProfile();
@@ -8,6 +10,9 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col gap-6 py-6">
+      <PollBanner />
+      <PrayerPraiseBanner />
+
       <div>
         <h1 className="text-xl font-semibold text-acid">
           Welcome{profile ? `, ${profile.display_name}` : ''}
