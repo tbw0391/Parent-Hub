@@ -1,15 +1,20 @@
 const BALLOONS = [
-  { emoji: '🎈', left: '6%', delay: '0s', size: 'text-lg' },
-  { emoji: '🎈', left: '88%', delay: '0.6s', size: 'text-base' },
-  { emoji: '🎈', left: '78%', delay: '1.1s', size: 'text-sm' },
+  { emoji: '🎈', left: '2%', delay: '0s', size: 'text-3xl' },
+  { emoji: '🎈', left: '16%', delay: '0.8s', size: 'text-2xl' },
+  { emoji: '🎈', left: '82%', delay: '0.3s', size: 'text-4xl' },
+  { emoji: '🎈', left: '92%', delay: '1.1s', size: 'text-2xl' },
+  { emoji: '🎈', left: '70%', delay: '1.5s', size: 'text-xl' },
 ];
 
 const CONFETTI = [
-  { emoji: '🎊', left: '15%', delay: '0s' },
-  { emoji: '✨', left: '30%', delay: '0.4s' },
-  { emoji: '🎊', left: '50%', delay: '0.9s' },
-  { emoji: '✨', left: '65%', delay: '0.2s' },
-  { emoji: '🎊', left: '95%', delay: '0.7s' },
+  { emoji: '🎊', left: '10%', delay: '0s' },
+  { emoji: '✨', left: '24%', delay: '0.4s' },
+  { emoji: '🎊', left: '38%', delay: '0.9s' },
+  { emoji: '✨', left: '52%', delay: '0.2s' },
+  { emoji: '🎊', left: '60%', delay: '1.2s' },
+  { emoji: '✨', left: '76%', delay: '0.6s' },
+  { emoji: '🎊', left: '88%', delay: '0.1s' },
+  { emoji: '✨', left: '97%', delay: '1.4s' },
 ];
 
 export function BirthdayConfetti() {
