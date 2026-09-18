@@ -12,10 +12,15 @@ export async function createAppRecommendation(formData: FormData) {
 
   const name = String(formData.get('name') ?? '').trim();
   const description = String(formData.get('description') ?? '').trim() || null;
-  const apple_url = String(formData.get('apple_url') ?? '').trim() || null;
-  const android_url = String(formData.get('android_url') ?? '').trim() || null;
+  const wantsIos = formData.get('ios') === 'on';
+  const wantsAndroid = formData.get('android') === 'on';
 
   if (!name) throw new Error('App name is required');
+
+  const apple_url = wantsIos ? await lookupAppleStoreUrl(name) : null;
+  const android_url = wantsAndroid
+    ? `https://play.google.com/store/search?q=${encodeURIComponent(name)}&c=apps`
+    : null;
 
   const { error } = await supabase
     .from('app_recommendations')
@@ -23,6 +28,19 @@ export async function createAppRecommendation(formData: FormData) {
 
   if (error) throw new Error(error.message);
   revalidatePath('/apps');
+}
+
+async function lookupAppleStoreUrl(name: string): Promise<string | null> {
+  try {
+    const res = await fetch(
+      `https://itunes.apple.com/search?term=${encodeURIComponent(name)}&entity=software&limit=1`
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data?.results?.[0]?.trackViewUrl ?? null;
+  } catch {
+    return null;
+  }
 }
 
 export async function deleteAppRecommendation(formData: FormData) {

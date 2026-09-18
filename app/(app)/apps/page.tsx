@@ -38,16 +38,17 @@ export default async function AppsPage() {
             placeholder="Why it's good for kids (optional)"
             className="rounded-md border border-acidDim/40 bg-ground px-3 py-2 text-ink outline-none focus:border-acid"
           />
-          <input
-            name="apple_url"
-            placeholder="Apple App Store link (optional)"
-            className="rounded-md border border-acidDim/40 bg-ground px-3 py-2 text-ink outline-none focus:border-acid"
-          />
-          <input
-            name="android_url"
-            placeholder="Google Play link (optional)"
-            className="rounded-md border border-acidDim/40 bg-ground px-3 py-2 text-ink outline-none focus:border-acid"
-          />
+          <div className="flex gap-4 text-sm text-ink">
+            <label className="flex items-center gap-2">
+              <input type="checkbox" name="ios" /> Available on iOS
+            </label>
+            <label className="flex items-center gap-2">
+              <input type="checkbox" name="android" /> Available on Android
+            </label>
+          </div>
+          <p className="text-xs text-acidDim">
+            We&apos;ll look up the App Store / Play Store link for you from the app name.
+          </p>
           <button type="submit" className="self-start rounded-md bg-pumpkin px-4 py-2 text-sm font-medium text-ground">
             Recommend
           </button>
@@ -89,7 +90,7 @@ export default async function AppsPage() {
                       rel="noreferrer"
                       className="text-sm text-acid underline"
                     >
-                      Google Play →
+                      Find on Google Play →
                     </a>
                   )}
                 </div>
