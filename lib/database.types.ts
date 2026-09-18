@@ -95,6 +95,8 @@ export interface Poll {
   author_id: string;
   question: string;
   created_at: string;
+  closed_at: string | null;
+  allow_multiple: boolean;
 }
 
 export interface PollOption {
