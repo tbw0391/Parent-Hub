@@ -1,4 +1,4 @@
-import { Newspaper, BarChart3, HeartHandshake, BookOpen, CalendarDays, Users, ShieldCheck, Smartphone, Gamepad2 } from 'lucide-react';
+import { Newspaper, BarChart3, HeartHandshake, BookOpen, CalendarDays, Users, ShieldCheck, Smartphone, Gamepad2, Clapperboard } from 'lucide-react';
 import type { Role } from './database.types';
 
 type NavItem = {
@@ -18,6 +18,7 @@ export const NAV: NavItem[] = [
   { href: '/parents', label: 'Parents', icon: Users, color: '#db2777' },
   { href: '/technology', label: 'Technology', icon: Smartphone, color: '#0d9488' },
   { href: '/apps', label: 'Apps', icon: Gamepad2, color: '#65a30d' },
+  { href: '/tv-movies', label: 'TV & Movies', icon: Clapperboard, color: '#9333ea' },
   { href: '/admin', label: 'Admin Tools', icon: ShieldCheck, color: '#475569', minRole: 'admin' },
 ];
 

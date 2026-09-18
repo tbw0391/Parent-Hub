@@ -82,6 +82,16 @@ export interface AppRecommendation {
   created_at: string;
 }
 
+export interface TvMovieRecommendation {
+  id: string;
+  author_id: string;
+  title: string;
+  media_type: 'movie' | 'tv';
+  poster_path: string | null;
+  providers: string[];
+  created_at: string;
+}
+
 export interface PrayerPraise {
   id: string;
   author_id: string;
