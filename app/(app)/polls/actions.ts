@@ -34,6 +34,7 @@ export async function createPoll(formData: FormData) {
 
   if (optionsError) throw new Error(optionsError.message);
   revalidatePath('/polls');
+  revalidatePath('/', 'layout');
 }
 
 export async function castVote(formData: FormData) {

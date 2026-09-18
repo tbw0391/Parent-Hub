@@ -23,4 +23,5 @@ export async function createEvent(formData: FormData) {
 
   if (error) throw new Error(error.message);
   revalidatePath('/schedule');
+  revalidatePath('/', 'layout');
 }

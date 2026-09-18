@@ -20,6 +20,7 @@ export async function createEntry(formData: FormData) {
 
   if (error) throw new Error(error.message);
   revalidatePath('/prayer-praise');
+  revalidatePath('/', 'layout');
 }
 
 export async function ackEntry(formData: FormData) {
