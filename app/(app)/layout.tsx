@@ -13,7 +13,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   if (profile?.disabled_at) {
     return (
       <div className="mx-auto flex min-h-screen max-w-sm flex-col items-center justify-center gap-4 px-4 text-center">
-        <Logo height={40} />
+        <Logo height={72} />
         <p className="text-sm text-acidDim">
           Your account has been disabled. Contact an admin if you think this is a mistake.
         </p>
@@ -37,7 +37,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         </Link>
 
         <div className="absolute left-1/2 -translate-x-1/2">
-          <Logo height={32} href="/" />
+          <Logo height={64} href="/" />
         </div>
 
         <div className="flex items-center gap-3">

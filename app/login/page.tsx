@@ -32,7 +32,7 @@ export default function LoginPage() {
     <main className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-sm rounded-xl border border-acidDim/30 bg-panel p-8 shadow-xl">
         <div className="mb-6 flex justify-center">
-          <Logo height={56} />
+          <Logo height={120} />
         </div>
         <p className="mb-6 text-sm text-acidDim">
           Enter your email and we&apos;ll send you a magic link to sign in — no password needed.
