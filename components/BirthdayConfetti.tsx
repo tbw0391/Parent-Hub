@@ -1,9 +1,9 @@
+// Positions are percentages within the right-half container (see wrapper below).
 const BALLOONS = [
-  { emoji: '🎈', left: '2%', delay: '0s', size: 'text-3xl' },
-  { emoji: '🎈', left: '16%', delay: '0.8s', size: 'text-2xl' },
-  { emoji: '🎈', left: '82%', delay: '0.3s', size: 'text-4xl' },
-  { emoji: '🎈', left: '92%', delay: '1.1s', size: 'text-2xl' },
-  { emoji: '🎈', left: '70%', delay: '1.5s', size: 'text-xl' },
+  { emoji: '🎈', left: '4%', delay: '0.3s', size: 'text-2xl' },
+  { emoji: '🎈', left: '30%', delay: '0.8s', size: 'text-3xl' },
+  { emoji: '🎈', left: '60%', delay: '0s', size: 'text-4xl' },
+  { emoji: '🎈', left: '84%', delay: '1.1s', size: 'text-2xl' },
 ];
 
 const CONFETTI = [
@@ -11,15 +11,14 @@ const CONFETTI = [
   { emoji: '✨', left: '24%', delay: '0.4s' },
   { emoji: '🎊', left: '38%', delay: '0.9s' },
   { emoji: '✨', left: '52%', delay: '0.2s' },
-  { emoji: '🎊', left: '60%', delay: '1.2s' },
-  { emoji: '✨', left: '76%', delay: '0.6s' },
-  { emoji: '🎊', left: '88%', delay: '0.1s' },
-  { emoji: '✨', left: '97%', delay: '1.4s' },
+  { emoji: '🎊', left: '68%', delay: '1.2s' },
+  { emoji: '✨', left: '82%', delay: '0.6s' },
+  { emoji: '🎊', left: '95%', delay: '0.1s' },
 ];
 
 export function BirthdayConfetti() {
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-0 w-1/2 overflow-hidden">
       {BALLOONS.map((b, i) => (
         <span
           key={`balloon-${i}`}
