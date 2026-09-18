@@ -27,7 +27,7 @@ export async function PrayerPraiseBanner() {
       {entries.map((entry) => (
         <div
           key={entry.id}
-          className="relative mx-4 mt-4 rounded-lg border border-pumpkin/40 bg-pumpkin/10 px-4 py-3"
+          className="relative rounded-lg border border-pumpkin/40 bg-pumpkin/10 px-4 py-3"
         >
           <PrayerPraiseBannerDismiss entryId={entry.id} />
           <div className="flex flex-col gap-1 pr-6">

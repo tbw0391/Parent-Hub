@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react';
 
 export function DismissibleBanner({
   storageKey,
+  className = 'mx-4 mt-4',
   children,
 }: {
   storageKey: string;
+  className?: string;
   children: React.ReactNode;
 }) {
   const [dismissed, setDismissed] = useState(true);
@@ -22,7 +24,7 @@ export function DismissibleBanner({
   if (dismissed) return null;
 
   return (
-    <div className="relative mx-4 mt-4 rounded-lg border border-pumpkin/40 bg-pumpkin/10 px-4 py-3">
+    <div className={`relative rounded-lg border border-pumpkin/40 bg-pumpkin/10 px-4 py-3 ${className}`}>
       <button
         type="button"
         aria-label="Dismiss"

@@ -38,7 +38,7 @@ export async function PollBanner() {
   return (
     <>
       {polls.map((poll) => (
-        <DismissibleBanner key={poll.id} storageKey={`poll-banner-dismissed-${today}-${poll.id}`}>
+        <DismissibleBanner key={poll.id} storageKey={`poll-banner-dismissed-${today}-${poll.id}`} className="">
           <div className="flex flex-col gap-2 pr-6">
             <span className="text-xs font-medium uppercase tracking-wide text-pumpkin">Poll open</span>
             <span className="text-sm font-medium text-ink">🗳️ {poll.question}</span>
