@@ -70,7 +70,7 @@ export async function updateMyDetails(formData: FormData) {
     .eq('id', targetId);
 
   if (error) throw new Error(error.message);
-  revalidatePath('/biography');
+  revalidatePath('/biography', 'layout');
 }
 
 export async function uploadPhoto(formData: FormData) {
@@ -97,7 +97,7 @@ export async function uploadPhoto(formData: FormData) {
     .eq('id', targetId);
   if (updateError) throw new Error(updateError.message);
 
-  revalidatePath('/biography');
+  revalidatePath('/biography', 'layout');
 }
 
 export async function addChild(formData: FormData) {
@@ -115,7 +115,7 @@ export async function addChild(formData: FormData) {
 
   const { error } = await supabase.from('children').insert({ parent_id: targetId, name, birth_date });
   if (error) throw new Error(error.message);
-  revalidatePath('/biography');
+  revalidatePath('/biography', 'layout');
 }
 
 export async function deleteChild(formData: FormData) {
@@ -130,5 +130,5 @@ export async function deleteChild(formData: FormData) {
 
   const { error } = await supabase.from('children').delete().eq('id', childId);
   if (error) throw new Error(error.message);
-  revalidatePath('/biography');
+  revalidatePath('/biography', 'layout');
 }

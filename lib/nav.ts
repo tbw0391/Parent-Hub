@@ -15,7 +15,7 @@ export const NAV: NavItem[] = [
   { href: '/prayer-praise', label: 'Prayer & Praise', icon: HeartHandshake, color: '#7c3aed' },
   { href: '/lessons', label: 'Lessons', icon: BookOpen, color: '#059669' },
   { href: '/schedule', label: 'Schedule', icon: CalendarDays, color: '#ea580c' },
-  { href: '/biography', label: 'Biography', icon: Users, color: '#db2777' },
+  { href: '/biography', label: 'Parents', icon: Users, color: '#db2777' },
   { href: '/technology', label: 'Technology', icon: Smartphone, color: '#0d9488' },
   { href: '/apps', label: 'Apps', icon: Gamepad2, color: '#65a30d' },
   { href: '/tv-movies', label: 'TV & Movies', icon: Clapperboard, color: '#9333ea' },

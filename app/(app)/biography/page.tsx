@@ -1,7 +1,7 @@
+import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { getCurrentProfile, hasRole } from '@/lib/auth';
 import type { Child, Profile } from '@/lib/database.types';
-import { updateMyDetails, addChild, deleteChild, uploadPhoto } from './actions';
 
 const ROLE_LABEL: Record<Profile['role'], string> = {
   parent: 'Parent',
@@ -119,180 +119,12 @@ export default async function BiographyPage() {
                 )}
 
                 {canEdit && (
-                  <details className="mt-3">
-                    <summary className="cursor-pointer text-xs text-acid">
-                      {me?.id === parent.id ? 'Edit my info' : 'Edit (admin)'}
-                    </summary>
-
-                    <form
-                      action={uploadPhoto}
-                      className="mt-3 flex flex-wrap items-end gap-2 rounded-md border border-acidDim/20 bg-ground p-3"
-                    >
-                      <input type="hidden" name="target_id" value={parent.id} />
-                      <label className="flex-1 text-xs text-acidDim">
-                        Photo
-                        <input
-                          type="file"
-                          name="photo"
-                          accept="image/*"
-                          required
-                          className="mt-1 block w-full text-sm text-ink"
-                        />
-                      </label>
-                      <button
-                        type="submit"
-                        className="rounded-md bg-pumpkin px-3 py-1.5 text-xs font-medium text-ground"
-                      >
-                        Upload photo
-                      </button>
-                    </form>
-
-                    <form
-                      action={updateMyDetails}
-                      className="mt-3 flex flex-col gap-2 rounded-md border border-acidDim/20 bg-ground p-3"
-                    >
-                      <input type="hidden" name="target_id" value={parent.id} />
-                      <input
-                        name="display_name"
-                        required
-                        placeholder="Your name"
-                        defaultValue={parent.display_name ?? ''}
-                        className="rounded-md border border-acidDim/40 bg-panel px-3 py-2 text-sm text-ink outline-none focus:border-acid"
-                      />
-                      <input
-                        name="profession"
-                        placeholder="Job"
-                        defaultValue={parent.profession ?? ''}
-                        className="rounded-md border border-acidDim/40 bg-panel px-3 py-2 text-sm text-ink outline-none focus:border-acid"
-                      />
-                      <input
-                        name="address_line1"
-                        placeholder="Street address"
-                        defaultValue={parent.address_line1 ?? ''}
-                        className="rounded-md border border-acidDim/40 bg-panel px-3 py-2 text-sm text-ink outline-none focus:border-acid"
-                      />
-                      <div className="flex gap-2">
-                        <input
-                          name="city"
-                          placeholder="City"
-                          defaultValue={parent.city ?? ''}
-                          className="flex-1 rounded-md border border-acidDim/40 bg-panel px-3 py-2 text-sm text-ink outline-none focus:border-acid"
-                        />
-                        <input
-                          name="state"
-                          placeholder="State"
-                          defaultValue={parent.state ?? ''}
-                          className="w-20 rounded-md border border-acidDim/40 bg-panel px-3 py-2 text-sm text-ink outline-none focus:border-acid"
-                        />
-                        <input
-                          name="zip"
-                          placeholder="ZIP"
-                          defaultValue={parent.zip ?? ''}
-                          className="w-24 rounded-md border border-acidDim/40 bg-panel px-3 py-2 text-sm text-ink outline-none focus:border-acid"
-                        />
-                      </div>
-                      <input
-                        name="phone"
-                        placeholder="Phone"
-                        defaultValue={parent.phone ?? ''}
-                        className="rounded-md border border-acidDim/40 bg-panel px-3 py-2 text-sm text-ink outline-none focus:border-acid"
-                      />
-
-                      <span className="mt-2 text-xs font-medium text-acidDim">Married?</span>
-                      <div className="flex gap-4 text-sm text-ink">
-                        <label className="flex items-center gap-2">
-                          <input
-                            type="radio"
-                            name="is_married"
-                            value="yes"
-                            defaultChecked={parent.is_married}
-                          />{' '}
-                          Yes
-                        </label>
-                        <label className="flex items-center gap-2">
-                          <input
-                            type="radio"
-                            name="is_married"
-                            value="no"
-                            defaultChecked={!parent.is_married}
-                          />{' '}
-                          No
-                        </label>
-                      </div>
-                      <input
-                        name="spouse_name"
-                        placeholder="Spouse's name"
-                        defaultValue={parent.spouse_name ?? ''}
-                        className="rounded-md border border-acidDim/40 bg-panel px-3 py-2 text-sm text-ink outline-none focus:border-acid"
-                      />
-
-                      <label className="text-xs text-acidDim">
-                        Anniversary
-                        <input
-                          type="date"
-                          name="anniversary"
-                          defaultValue={parent.anniversary ?? ''}
-                          className="mt-1 block rounded-md border border-acidDim/40 bg-panel px-3 py-2 text-sm text-ink outline-none focus:border-acid"
-                        />
-                      </label>
-                      <label className="text-xs text-acidDim">
-                        Birthday
-                        <input
-                          type="date"
-                          name="birthday"
-                          defaultValue={parent.birthday ?? ''}
-                          className="mt-1 block rounded-md border border-acidDim/40 bg-panel px-3 py-2 text-sm text-ink outline-none focus:border-acid"
-                        />
-                      </label>
-
-                      <button
-                        type="submit"
-                        className="mt-1 self-start rounded-md bg-pumpkin px-3 py-1.5 text-xs font-medium text-ground"
-                      >
-                        Save
-                      </button>
-                    </form>
-
-                    <div className="mt-3 flex flex-col gap-2 rounded-md border border-acidDim/20 bg-ground p-3">
-                      <span className="text-xs font-medium text-acidDim">Kids</span>
-                      {kids.map((kid) => (
-                        <form
-                          key={kid.id}
-                          action={deleteChild}
-                          className="flex items-center justify-between text-sm text-ink"
-                        >
-                          <input type="hidden" name="child_id" value={kid.id} />
-                          <span>
-                            {kid.name} · {formatDate(kid.birth_date)}
-                          </span>
-                          <button type="submit" className="text-xs text-acidDim hover:text-pumpkin">
-                            Remove
-                          </button>
-                        </form>
-                      ))}
-                      <form action={addChild} className="flex flex-wrap items-end gap-2">
-                        <input type="hidden" name="target_id" value={parent.id} />
-                        <input
-                          name="name"
-                          required
-                          placeholder="Child's name"
-                          className="rounded-md border border-acidDim/40 bg-panel px-3 py-2 text-sm text-ink outline-none focus:border-acid"
-                        />
-                        <input
-                          type="date"
-                          name="birth_date"
-                          required
-                          className="rounded-md border border-acidDim/40 bg-panel px-3 py-2 text-sm text-ink outline-none focus:border-acid"
-                        />
-                        <button
-                          type="submit"
-                          className="rounded-md bg-pumpkin px-3 py-1.5 text-xs font-medium text-ground"
-                        >
-                          Add child
-                        </button>
-                      </form>
-                    </div>
-                  </details>
+                  <Link
+                    href={`/biography/${parent.id}`}
+                    className="mt-3 inline-block text-xs text-acid"
+                  >
+                    {me?.id === parent.id ? 'Edit my info →' : 'Edit (admin) →'}
+                  </Link>
                 )}
               </div>
             );
