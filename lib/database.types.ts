@@ -90,6 +90,13 @@ export interface PrayerPraise {
   created_at: string;
 }
 
+export interface PrayerPraiseAck {
+  id: string;
+  entry_id: string;
+  user_id: string;
+  created_at: string;
+}
+
 export interface Poll {
   id: string;
   author_id: string;

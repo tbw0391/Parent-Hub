@@ -6,6 +6,7 @@ import { CHAT_COLOR } from '@/lib/nav';
 import { SignOutButton } from '@/components/SignOutButton';
 import { UpcomingBanner } from '@/components/UpcomingBanner';
 import { PollBanner } from '@/components/PollBanner';
+import { PrayerPraiseBanner } from '@/components/PrayerPraiseBanner';
 import { Logo } from '@/components/Logo';
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
@@ -53,6 +54,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
       <UpcomingBanner />
       <PollBanner />
+      <PrayerPraiseBanner />
 
       <main className="flex-1 px-4 pb-10">{children}</main>
     </div>

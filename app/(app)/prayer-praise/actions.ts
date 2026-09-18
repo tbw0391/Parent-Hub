@@ -21,3 +21,21 @@ export async function createEntry(formData: FormData) {
   if (error) throw new Error(error.message);
   revalidatePath('/prayer-praise');
 }
+
+export async function ackEntry(formData: FormData) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not signed in');
+
+  const entry_id = String(formData.get('entry_id') ?? '');
+  if (!entry_id) throw new Error('Missing entry');
+
+  const { error } = await supabase
+    .from('prayer_praise_acks')
+    .insert({ entry_id, user_id: user.id });
+
+  if (error) throw new Error(error.message);
+  revalidatePath('/', 'layout');
+}
