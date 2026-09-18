@@ -72,6 +72,16 @@ export interface TechRecommendation {
   created_at: string;
 }
 
+export interface AppRecommendation {
+  id: string;
+  author_id: string;
+  name: string;
+  description: string | null;
+  url: string | null;
+  platform: string | null;
+  created_at: string;
+}
+
 export interface PrayerPraise {
   id: string;
   author_id: string;
