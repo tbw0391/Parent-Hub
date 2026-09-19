@@ -4,7 +4,6 @@ import { getCurrentProfile } from '@/lib/auth';
 import { getUnreadChatCount } from '@/lib/chat';
 import { CHAT_COLOR } from '@/lib/nav';
 import { SignOutButton } from '@/components/SignOutButton';
-import { UpcomingBanner } from '@/components/UpcomingBanner';
 import { Logo } from '@/components/Logo';
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
@@ -49,8 +48,6 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           <SignOutButton />
         </div>
       </header>
-
-      <UpcomingBanner />
 
       <main className="flex-1 px-4 pb-10">{children}</main>
     </div>

@@ -13,12 +13,50 @@ export function nextOccurrence(event: Pick<ScheduleEvent, 'starts_at' | 'recurre
   return next;
 }
 
+/** All occurrences of an event that fall within [rangeStart, rangeEnd). */
+export function occurrencesInRange(
+  event: Pick<ScheduleEvent, 'starts_at' | 'recurrence'>,
+  rangeStart: Date,
+  rangeEnd: Date
+): Date[] {
+  const start = new Date(event.starts_at);
+  if (event.recurrence === 'none') {
+    return start >= rangeStart && start < rangeEnd ? [start] : [];
+  }
+
+  const step = (d: Date) => {
+    const next = new Date(d);
+    if (event.recurrence === 'weekly') next.setDate(next.getDate() + 7);
+    else if (event.recurrence === 'monthly') next.setMonth(next.getMonth() + 1);
+    else next.setFullYear(next.getFullYear() + 1);
+    return next;
+  };
+
+  let cursor = new Date(start);
+  while (cursor.getTime() < rangeStart.getTime()) cursor = step(cursor);
+
+  const occurrences: Date[] = [];
+  while (cursor.getTime() < rangeEnd.getTime()) {
+    occurrences.push(cursor);
+    cursor = step(cursor);
+  }
+  return occurrences;
+}
+
 export const RECURRENCE_LABEL: Record<ScheduleEvent['recurrence'], string> = {
   none: '',
   weekly: 'Weekly',
   monthly: 'Monthly',
   yearly: 'Yearly',
 };
+
+/** The 6-week (42-day) grid range a calendar for this month would render, including lead/trail days. */
+export function monthGridRange(year: number, month: number): { start: Date; end: Date } {
+  const firstOfMonth = new Date(year, month, 1);
+  const start = new Date(year, month, 1 - firstOfMonth.getDay());
+  const end = new Date(start.getFullYear(), start.getMonth(), start.getDate() + 42);
+  return { start, end };
+}
 
 export interface LifeEvent {
   id: string;

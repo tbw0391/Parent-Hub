@@ -1,8 +1,9 @@
 import { createClient } from '@/lib/supabase/server';
 import { getCurrentProfile, hasRole } from '@/lib/auth';
 import { RoleGate } from '@/components/RoleGate';
+import { MonthCalendar, type CalendarEntry } from '@/components/MonthCalendar';
 import type { Child, Profile, ScheduleEvent } from '@/lib/database.types';
-import { buildLifeEvents, nextOccurrence, RECURRENCE_LABEL } from '@/lib/schedule';
+import { buildLifeEvents, monthGridRange, nextOccurrence, occurrencesInRange, RECURRENCE_LABEL } from '@/lib/schedule';
 import { createEvent, deleteEvent } from './actions';
 
 interface DisplayEvent {
@@ -70,6 +71,18 @@ export default async function SchedulePage() {
     .filter(({ event, next }) => event.recurrence === 'none' && next.getTime() < now.getTime())
     .sort((a, b) => b.next.getTime() - a.next.getTime());
 
+  const calendarYear = now.getFullYear();
+  const calendarMonth = now.getMonth();
+  const { start: gridStart, end: gridEnd } = monthGridRange(calendarYear, calendarMonth);
+  const calendarEntries: CalendarEntry[] = [
+    ...scheduleEvents.flatMap((event) =>
+      occurrencesInRange(event, gridStart, gridEnd).map((date) => ({ date, title: event.title, kind: 'event' as const }))
+    ),
+    ...lifeEvents.flatMap((life) =>
+      occurrencesInRange(life, gridStart, gridEnd).map((date) => ({ date, title: life.title, kind: 'life' as const }))
+    ),
+  ];
+
   const canManage = hasRole(profile, 'admin');
 
   function EventCard({ event, next }: { event: DisplayEvent; next: Date }) {
@@ -102,6 +115,8 @@ export default async function SchedulePage() {
   return (
     <div className="flex flex-col gap-6 py-6">
       <h1 className="text-xl font-semibold text-acid">Schedule</h1>
+
+      <MonthCalendar year={calendarYear} month={calendarMonth} entries={calendarEntries} />
 
       <RoleGate profile={profile} minRole="admin">
         <form action={createEvent} className="flex flex-col gap-3 rounded-lg border border-acidDim/30 bg-panel p-4">
