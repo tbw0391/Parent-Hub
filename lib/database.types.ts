@@ -42,6 +42,8 @@ export interface Article {
   created_at: string;
 }
 
+export type ScheduleRecurrence = 'none' | 'weekly' | 'monthly' | 'yearly';
+
 export interface ScheduleEvent {
   id: string;
   author_id: string;
@@ -49,6 +51,7 @@ export interface ScheduleEvent {
   description: string | null;
   starts_at: string;
   location: string | null;
+  recurrence: ScheduleRecurrence;
   created_at: string;
 }
 
