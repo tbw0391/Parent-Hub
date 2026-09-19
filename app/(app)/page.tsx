@@ -3,6 +3,7 @@ import { getCurrentProfile, hasRole } from '@/lib/auth';
 import { NAV } from '@/lib/nav';
 import { PollBanner } from '@/components/PollBanner';
 import { PrayerPraiseBanner } from '@/components/PrayerPraiseBanner';
+import { UpcomingBanner } from '@/components/UpcomingBanner';
 
 export default async function HomePage() {
   const profile = await getCurrentProfile();
@@ -12,6 +13,7 @@ export default async function HomePage() {
     <div className="flex flex-col gap-6 py-6">
       <PollBanner />
       <PrayerPraiseBanner />
+      <UpcomingBanner />
 
       <div>
         <h1 className="text-xl font-semibold text-acid">
