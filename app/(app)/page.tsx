@@ -22,16 +22,16 @@ export default async function HomePage() {
         <p className="mt-2 text-sm text-acidDim">Pick a section to get started.</p>
       </div>
 
-      <nav className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+      <nav className="grid grid-cols-3 gap-2">
         {items.map((item) => {
           const Icon = item.icon;
           return (
             <Link
               key={item.href}
               href={item.href}
-              className="flex flex-col items-center gap-2 rounded-lg border border-acidDim/30 bg-panel px-3 py-4 text-center text-sm font-medium text-ink transition hover:border-acid"
+              className="flex flex-col items-center gap-1 rounded-lg border border-acidDim/30 bg-panel px-2 py-3 text-center text-xs font-medium text-ink transition hover:border-acid"
             >
-              <Icon size={22} color={item.color} strokeWidth={2} aria-hidden />
+              <Icon size={18} color={item.color} strokeWidth={2} aria-hidden />
               {item.label}
             </Link>
           );
