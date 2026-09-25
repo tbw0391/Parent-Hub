@@ -23,3 +23,4 @@ export const NAV: NavItem[] = [
 ];
 
 export const CHAT_COLOR = '#0891b2';
+export const NOTIFICATION_COLOR = '#ea580c';
