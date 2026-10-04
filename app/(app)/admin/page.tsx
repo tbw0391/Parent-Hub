@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { ArrowLeft, BarChart3, BookOpen, CalendarDays, Newspaper, Smartphone, Users } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { getCurrentProfile, hasRole } from '@/lib/auth';
 import type { Article, Lesson, Poll, Profile, Role, ScheduleEvent, TechRecommendation } from '@/lib/database.types';
@@ -18,7 +20,18 @@ const ROLE_LABEL: Record<Role, string> = {
   admin: 'Admin',
 };
 
-export default async function AdminPage() {
+const SECTIONS = [
+  { key: 'people', label: 'People', icon: Users, color: '#db2777' },
+  { key: 'articles', label: 'Articles', icon: Newspaper, color: '#e11d48' },
+  { key: 'schedule', label: 'Schedule', icon: CalendarDays, color: '#ea580c' },
+  { key: 'lessons', label: 'Lessons', icon: BookOpen, color: '#059669' },
+  { key: 'polls', label: 'Polls', icon: BarChart3, color: '#2563eb' },
+  { key: 'technology', label: 'Technology', icon: Smartphone, color: '#0d9488' },
+] as const;
+
+type SectionKey = (typeof SECTIONS)[number]['key'];
+
+export default async function AdminPage({ searchParams }: { searchParams: Promise<{ section?: string }> }) {
   const me = await getCurrentProfile();
   if (!hasRole(me, 'admin')) redirect('/');
 
@@ -47,15 +60,57 @@ export default async function AdminPage() {
   const polls = (pollsData as Poll[] | null) ?? [];
   const techApps = (techData as TechRecommendation[] | null) ?? [];
 
+  const counts: Record<SectionKey, number> = {
+    people: profiles.length,
+    articles: articles.length,
+    schedule: events.length,
+    lessons: lessons.length,
+    polls: polls.length,
+    technology: techApps.length,
+  };
+
+  const { section: sectionParam } = await searchParams;
+  const section = SECTIONS.find((s) => s.key === sectionParam);
+
+  if (!section) {
+    return (
+      <div className="flex flex-col gap-6 py-6">
+        <div>
+          <h1 className="text-xl font-semibold text-acid">Admin tools</h1>
+          <p className="mt-2 text-sm text-acidDim">Pick an area to manage.</p>
+        </div>
+
+        <nav className="grid grid-cols-3 gap-2">
+          {SECTIONS.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.key}
+                href={`/admin?section=${item.key}`}
+                className="flex flex-col items-center gap-1 rounded-lg border border-acidDim/30 bg-panel px-2 py-3 text-center text-xs font-medium text-ink transition hover:border-acid"
+              >
+                <Icon size={18} color={item.color} strokeWidth={2} aria-hidden />
+                {item.label}
+                <span className="text-[10px] text-acidDim">{counts[item.key]}</span>
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col gap-8 py-6">
+    <div className="flex flex-col gap-6 py-6">
       <div>
-        <h1 className="text-xl font-semibold text-acid">Admin tools</h1>
-        <p className="mt-2 text-sm text-acidDim">Manage member roles, access, and posted content.</p>
+        <Link href="/admin" className="inline-flex items-center gap-1 text-xs text-acidDim hover:text-acid">
+          <ArrowLeft size={14} aria-hidden />
+          Admin tools
+        </Link>
+        <h1 className="mt-2 text-xl font-semibold text-acid">{section.label}</h1>
       </div>
 
-      <section className="flex flex-col gap-3">
-        <h2 className="text-sm font-medium text-acidDim">People</h2>
+      {section.key === 'people' && (
         <div className="flex flex-col gap-2">
           {profiles.map((person) => {
             const isMe = person.id === me!.id;
@@ -115,47 +170,42 @@ export default async function AdminPage() {
             );
           })}
         </div>
-      </section>
+      )}
 
-      <section className="flex flex-col gap-3">
-        <h2 className="text-sm font-medium text-acidDim">Articles</h2>
+      {section.key === 'articles' && (
         <ContentList
           items={articles}
           label={(a) => a.title}
           deleteAction={deleteArticle}
           empty="No articles yet."
         />
-      </section>
+      )}
 
-      <section className="flex flex-col gap-3">
-        <h2 className="text-sm font-medium text-acidDim">Schedule events</h2>
+      {section.key === 'schedule' && (
         <ContentList
           items={events}
           label={(e) => e.title}
           deleteAction={deleteScheduleEvent}
           empty="Nothing on the schedule yet."
         />
-      </section>
+      )}
 
-      <section className="flex flex-col gap-3">
-        <h2 className="text-sm font-medium text-acidDim">Lessons</h2>
+      {section.key === 'lessons' && (
         <ContentList items={lessons} label={(l) => l.title} deleteAction={deleteLesson} empty="No lessons yet." />
-      </section>
+      )}
 
-      <section className="flex flex-col gap-3">
-        <h2 className="text-sm font-medium text-acidDim">Polls</h2>
+      {section.key === 'polls' && (
         <ContentList items={polls} label={(p) => p.question} deleteAction={deletePoll} empty="No polls yet." />
-      </section>
+      )}
 
-      <section className="flex flex-col gap-3">
-        <h2 className="text-sm font-medium text-acidDim">Technology</h2>
+      {section.key === 'technology' && (
         <ContentList
           items={techApps}
           label={(a) => a.name}
           deleteAction={deleteTechRecommendation}
           empty="No recommendations yet."
         />
-      </section>
+      )}
     </div>
   );
 }
