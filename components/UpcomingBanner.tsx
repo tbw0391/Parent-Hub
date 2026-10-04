@@ -1,16 +1,15 @@
 import { createClient } from '@/lib/supabase/server';
-import { getUpcomingEvents, type UpcomingChild, type UpcomingProfile } from '@/lib/upcoming';
+import { getUpcomingEvents } from '@/lib/upcoming';
+import type { Child, Profile } from '@/lib/database.types';
 import { DismissibleBanner } from '@/components/DismissibleBanner';
 import { BirthdayConfetti } from '@/components/BirthdayConfetti';
 
 export async function UpcomingBanner() {
   const supabase = await createClient();
-  const [{ data: profilesData }, { data: childrenData }] = await Promise.all([
-    supabase.from('profiles').select('id, display_name, birthday, anniversary, spouse_id, photo_path'),
-    supabase.from('children').select('id, name, birth_date, parent_id'),
-  ]);
-  const profiles = (profilesData as UpcomingProfile[] | null) ?? [];
-  const children = (childrenData as UpcomingChild[] | null) ?? [];
+  const { data: profilesData } = await supabase.from('profiles').select('*');
+  const { data: childrenData } = await supabase.from('children').select('*');
+  const profiles = (profilesData as Profile[]) ?? [];
+  const children = (childrenData as Child[]) ?? [];
 
   const events = getUpcomingEvents(profiles, children);
   if (events.length === 0) return null;

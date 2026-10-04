@@ -19,11 +19,11 @@ export async function getUnreadChatCount(userId: string): Promise<number> {
 
   const { data: messagesData } = await supabase
     .from('messages')
-    .select('group_id, created_at')
+    .select('*')
     .in('group_id', groupIds)
     .neq('sender_id', userId)
     .gt('created_at', oldestReadAt);
-  const messages = (messagesData as Pick<Message, 'group_id' | 'created_at'>[] | null) ?? [];
+  const messages = (messagesData as Message[] | null) ?? [];
 
   const lastReadByGroup = new Map(memberships.map((m) => [m.group_id, m.last_read_at]));
 

@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import Link from 'next/link';
 import { getCurrentProfile, hasRole } from '@/lib/auth';
 import { NAV } from '@/lib/nav';
@@ -12,12 +11,9 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col gap-6 py-6">
-      {/* Banners stream in after the nav renders; one boundary so they appear together. */}
-      <Suspense fallback={null}>
-        <PollBanner />
-        <PrayerPraiseBanner />
-        <UpcomingBanner />
-      </Suspense>
+      <PollBanner />
+      <PrayerPraiseBanner />
+      <UpcomingBanner />
 
       <div>
         <h1 className="text-xl font-semibold text-acid">

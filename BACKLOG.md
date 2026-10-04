@@ -7,5 +7,3 @@
 - [ ] **Schedule editing for power_users** — currently only admins can post Schedule events; let power_users update/edit them too.
 - [ ] **Birthday banner** — automatically show a banner with the person's picture and a "Happy birthday" message on their birthday.
 - [x] **App Store / Play Store links** — for Apps entries, let the poster provide just the app name, then supply both an Apple App Store link and a Google Play link.
-- [ ] **FieldhouseOS** — create a "FieldhouseOS" version for football, soccer, and lacrosse.
-- [ ] **IcehouseOS** — create an "IcehouseOS" version for hockey.

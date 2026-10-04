@@ -1,11 +1,5 @@
 import type { Child, Profile } from '@/lib/database.types';
 
-export type UpcomingProfile = Pick<
-  Profile,
-  'id' | 'display_name' | 'birthday' | 'anniversary' | 'spouse_id' | 'photo_path'
->;
-export type UpcomingChild = Pick<Child, 'id' | 'name' | 'birth_date' | 'parent_id'>;
-
 export interface UpcomingEvent {
   id: string;
   label: string;
@@ -33,8 +27,8 @@ function formatMonthDay(date: Date): string {
 }
 
 export function getUpcomingEvents(
-  profiles: UpcomingProfile[],
-  children: UpcomingChild[],
+  profiles: Profile[],
+  children: Child[],
   withinDays = 14,
   today: Date = new Date()
 ): UpcomingEvent[] {

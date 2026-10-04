@@ -24,8 +24,9 @@ export async function middleware(request: NextRequest) {
     }
   );
 
-  const { data: claimsData } = await supabase.auth.getClaims();
-  const user = claimsData?.claims.sub;
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   const isAuthRoute = request.nextUrl.pathname.startsWith('/login') ||
     request.nextUrl.pathname.startsWith('/auth');
