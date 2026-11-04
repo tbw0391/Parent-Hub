@@ -4,6 +4,7 @@ import { NAV } from '@/lib/nav';
 import { PollBanner } from '@/components/PollBanner';
 import { PrayerPraiseBanner } from '@/components/PrayerPraiseBanner';
 import { UpcomingBanner } from '@/components/UpcomingBanner';
+import { VerseOfTheDay } from '@/components/VerseOfTheDay';
 
 export default async function HomePage() {
   const profile = await getCurrentProfile();
@@ -11,6 +12,7 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col gap-6 py-6">
+      <VerseOfTheDay />
       <PollBanner />
       <PrayerPraiseBanner />
       <UpcomingBanner />
