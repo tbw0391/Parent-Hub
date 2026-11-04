@@ -2,9 +2,11 @@ import Link from 'next/link';
 import { MessageCircle } from 'lucide-react';
 import { getCurrentProfile } from '@/lib/auth';
 import { getUnreadChatCount } from '@/lib/chat';
+import { getNotifications } from '@/lib/notifications';
 import { CHAT_COLOR } from '@/lib/nav';
 import { SignOutButton } from '@/components/SignOutButton';
 import { Logo } from '@/components/Logo';
+import { NotificationBell } from '@/components/NotificationBell';
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const profile = await getCurrentProfile();
@@ -22,6 +24,9 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   }
 
   const unreadCount = profile ? await getUnreadChatCount(profile.id) : 0;
+  const { items: notificationItems, totalCount: notificationCount } = profile
+    ? await getNotifications(profile.id, unreadCount)
+    : { items: [], totalCount: 0 };
 
   return (
     <div className="mx-auto flex min-h-screen max-w-3xl flex-col">
@@ -40,6 +45,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         </div>
 
         <div className="flex items-center gap-3">
+          <NotificationBell items={notificationItems} totalCount={notificationCount} />
           {profile && (
             <span className="hidden text-xs text-acidDim sm:inline">
               {profile.display_name} · {profile.role}

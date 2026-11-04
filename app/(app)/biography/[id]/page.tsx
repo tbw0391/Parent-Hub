@@ -37,7 +37,7 @@ export default async function BioPage({ params }: { params: Promise<{ id: string
         </Link>
         <h1 className="mt-2 text-xl font-semibold text-acid">Bio</h1>
         <p className="mt-1 text-sm text-acidDim">
-          {me.id === id ? 'Edit your info and kids.' : `Editing ${person.display_name || person.email} (admin).`}
+          {me.id === id ? 'Edit your info and kids.' : `Editing ${person.display_name || person.email || person.phone} (admin).`}
         </p>
       </div>
 

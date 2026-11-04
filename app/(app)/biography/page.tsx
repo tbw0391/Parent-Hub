@@ -86,7 +86,7 @@ export default async function BiographyPage() {
                         {parent.display_name.slice(0, 1).toUpperCase()}
                       </div>
                     )}
-                    <span className="text-base font-medium text-ink">{parent.display_name || parent.email}</span>
+                    <span className="text-base font-medium text-ink">{parent.display_name || parent.email || parent.phone}</span>
                   </div>
                   {parent.role !== 'parent' && (
                     <span className="rounded-full bg-pumpkin/20 px-2 py-0.5 text-xs font-medium text-pumpkin">
@@ -98,7 +98,7 @@ export default async function BiographyPage() {
                 <dl className="mt-2 flex flex-col gap-1 text-sm text-acidDim">
                   {parent.profession && <div>{parent.profession}</div>}
                   {address && <div>{address}</div>}
-                  <div>{parent.email}</div>
+                  {parent.email && <div>{parent.email}</div>}
                   {parent.phone && <div>{parent.phone}</div>}
                   {spouseLabel && <div>Spouse: {spouseLabel}</div>}
                   {parent.anniversary && <div>Anniversary: {formatDate(parent.anniversary)}</div>}

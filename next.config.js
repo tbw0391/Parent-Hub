@@ -6,6 +6,13 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  experimental: {
+    serverActions: {
+      // Default is 1mb, which rejects typical phone-camera photos uploaded
+      // via the biography page's photo form.
+      bodySizeLimit: '10mb',
+    },
+  },
 };
 
 module.exports = nextConfig;
