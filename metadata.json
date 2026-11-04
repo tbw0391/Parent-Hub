@@ -1,0 +1,31 @@
+{
+  "cli_version": "0.11.4",
+  "checkpoint_id": "01M6M721K8FESZD1BHR790XSCG",
+  "strategy": "manual-commit",
+  "branch": "Crew-app",
+  "checkpoints_count": 4,
+  "files_touched": [
+    "app/(app)/admin/page.tsx",
+    "app/(app)/biography/[id]/page.tsx",
+    "app/(app)/biography/page.tsx",
+    "app/login/page.tsx",
+    "lib/database.types.ts",
+    "supabase/migrations/0017_phone_login.sql"
+  ],
+  "sessions": [
+    {
+      "metadata": "/0/metadata.json",
+      "transcript": "/0/full.jsonl",
+      "compact_transcript": "/0/transcript.jsonl",
+      "content_hash": "/0/content_hash.txt",
+      "prompt": "/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 50,
+    "cache_creation_tokens": 40014,
+    "cache_read_tokens": 1111907,
+    "output_tokens": 8856,
+    "api_call_count": 19
+  }
+}
