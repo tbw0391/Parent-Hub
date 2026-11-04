@@ -1,0 +1,91 @@
+why crew app
+
+---
+
+cleared hot
+
+---
+
+I dont want to use crew app going forward it is confusing to my small brain
+
+---
+
+parrent hub is the db you should be using
+
+---
+
+my number is 6145988992
+
+---
+
+supabase good
+
+---
+
+ok lets get the cli operational
+
+---
+
+Error sending confirmation OTP to provider: Invalid parameter More information: https://www.twilio.com/docs/errors/60200
+
+---
+
+updated
+
+---
+
+Error sending confirmation OTP to provider: Invalid parameter More information: https://www.twilio.com/docs/errors/60200
+
+---
+
+updated
+
+---
+
+Error sending confirmation OTP to provider: Invalid parameter More information: https://www.twilio.com/docs/errors/60200
+
+---
+
+<task-notification>
+<task-id>b7gwcdlw5</task-id>
+<tool-use-id>toolu_01SMZjs6ot7bSXQHXD7szaga</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-todd-Documents-GitHub-Parent-Hub/17e494e7-1844-40b1-ad0e-a68b902666b2/tasks/b7gwcdlw5.output</output-file>
+<status>completed</status>
+<summary>Background command "Read Supabase phone/SMS settings, redacting secrets" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+i dont know the password
+
+---
+
+what are the commands on a mac to open the snip tool
+
+---
+
+'/Users/todd/Desktop/Screenshot 2026-11-04 at 4.53.56 PM.png'
+
+---
+
+done
+
+---
+
+i am in
+
+---
+
+ok I need a back button on the pages
+
+---
+
+move the parent button to the top left  position 1
+
+---
+
+on the signin page the icon is not there.  Also can you remove the grey box and animate the image
+
+---
+
+yes
