@@ -37,6 +37,12 @@ export default async function HomePage() {
           );
         })}
       </nav>
+
+      <div className="mt-6 flex flex-col items-center gap-2 text-center">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/qr/parent-hub.svg" alt="QR code for Parent Hub" width={160} height={160} />
+        <p className="text-xs text-acidDim">Scan to open Parent Hub</p>
+      </div>
     </div>
   );
 }
