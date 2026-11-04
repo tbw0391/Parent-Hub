@@ -66,10 +66,10 @@ export default async function AdminPage() {
               >
                 <div>
                   <div className="text-sm font-medium text-ink">
-                    {person.display_name || person.email} {isMe && <span className="text-xs text-acidDim">(you)</span>}
+                    {person.display_name || person.email || person.phone} {isMe && <span className="text-xs text-acidDim">(you)</span>}
                   </div>
                   <div className="text-xs text-acidDim">
-                    {person.email}
+                    {person.email || person.phone}
                     {person.disabled_at && <span className="ml-2 text-red-400">Disabled</span>}
                   </div>
                 </div>

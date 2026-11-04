@@ -6,7 +6,7 @@ export type Role = 'parent' | 'power_user' | 'admin';
 
 export interface Profile {
   id: string;
-  email: string;
+  email: string | null;
   display_name: string;
   role: Role;
   phone: string | null;
