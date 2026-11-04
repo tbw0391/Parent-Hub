@@ -29,7 +29,9 @@ export default async function HomePage() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex flex-col items-center gap-1 rounded-lg border border-acidDim/30 bg-panel px-2 py-3 text-center text-xs font-medium text-ink transition hover:border-acid"
+              // Tint each button with its icon color: ~10% fill, ~25% border, solid border on hover.
+              style={{ '--c': item.color, backgroundColor: `${item.color}1a`, borderColor: `${item.color}40` } as React.CSSProperties}
+              className="flex flex-col items-center gap-1 rounded-lg border px-2 py-3 text-center text-xs font-medium text-ink transition hover:!border-[color:var(--c)]"
             >
               <Icon size={18} color={item.color} strokeWidth={2} aria-hidden />
               {item.label}
