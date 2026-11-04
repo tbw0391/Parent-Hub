@@ -53,8 +53,8 @@ export default function LoginPage() {
 
   return (
     <main className="flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-sm rounded-xl border border-acidDim/30 bg-panel p-8 shadow-xl">
-        <div className="mb-6 flex justify-center">
+      <div className="w-full max-w-sm p-8">
+        <div className="mb-6 flex justify-center motion-safe:animate-logo-in">
           <Logo height={120} />
         </div>
 

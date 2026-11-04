@@ -7,6 +7,7 @@ import { CHAT_COLOR } from '@/lib/nav';
 import { SignOutButton } from '@/components/SignOutButton';
 import { Logo } from '@/components/Logo';
 import { NotificationBell } from '@/components/NotificationBell';
+import { BackButton } from '@/components/BackButton';
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const profile = await getCurrentProfile();
@@ -55,7 +56,10 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         </div>
       </header>
 
-      <main className="flex-1 px-4 pb-10">{children}</main>
+      <main className="flex-1 px-4 pb-10">
+        <BackButton />
+        {children}
+      </main>
     </div>
   );
 }

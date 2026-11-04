@@ -17,6 +17,14 @@ const config: Config = {
         body: ['var(--font-body)'],
       },
       keyframes: {
+        'logo-in': {
+          '0%': { transform: 'translateY(16px) scale(0.85)', opacity: '0' },
+          '100%': { transform: 'translateY(0) scale(1)', opacity: '1' },
+        },
+        'logo-float': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-8px)' },
+        },
         'balloon-float': {
           '0%': { transform: 'translateY(0) rotate(-4deg)' },
           '50%': { transform: 'translateY(-10px) rotate(4deg)' },
@@ -29,6 +37,7 @@ const config: Config = {
         },
       },
       animation: {
+        'logo-in': 'logo-in 0.8s ease-out both, logo-float 4s ease-in-out 0.8s infinite',
         'balloon-float': 'balloon-float 2.4s ease-in-out infinite',
         'confetti-fall': 'confetti-fall 2.2s linear infinite',
       },
