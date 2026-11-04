@@ -103,6 +103,13 @@ export interface PrayerPraise {
   created_at: string;
 }
 
+export interface Suggestion {
+  id: string;
+  author_id: string;
+  body: string;
+  created_at: string;
+}
+
 export interface PrayerPraiseAck {
   id: string;
   entry_id: string;
