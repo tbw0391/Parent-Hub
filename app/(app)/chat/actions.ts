@@ -58,9 +58,10 @@ export async function sendMessage(formData: FormData) {
 
   const group_id = String(formData.get('group_id') ?? '');
   const body = String(formData.get('body') ?? '').trim();
-  if (!group_id || !body) return;
+  const image_path = String(formData.get('image_path') ?? '') || null;
+  if (!group_id || (!body && !image_path)) return;
 
-  const { error } = await supabase.from('messages').insert({ group_id, sender_id: user.id, body });
+  const { error } = await supabase.from('messages').insert({ group_id, sender_id: user.id, body, image_path });
   if (error) throw new Error(error.message);
 }
 

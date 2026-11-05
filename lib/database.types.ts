@@ -161,5 +161,6 @@ export interface Message {
   group_id: string;
   sender_id: string;
   body: string;
+  image_path: string | null;
   created_at: string;
 }
