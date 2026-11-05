@@ -24,3 +24,18 @@ export async function createTechRecommendation(formData: FormData) {
   if (error) throw new Error(error.message);
   revalidatePath('/technology');
 }
+
+export async function deleteTechRecommendation(formData: FormData) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not signed in');
+
+  const id = String(formData.get('id') ?? '');
+  if (!id) throw new Error('Missing recommendation');
+
+  const { error } = await supabase.from('tech_recommendations').delete().eq('id', id);
+  if (error) throw new Error(error.message);
+  revalidatePath('/technology');
+}

@@ -1,8 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
-import { getCurrentProfile } from '@/lib/auth';
-import { RoleGate } from '@/components/RoleGate';
+import { getCurrentProfile, hasRole } from '@/lib/auth';
 import type { Article } from '@/lib/database.types';
-import { createArticle } from './actions';
+import { createArticle, deleteArticle } from './actions';
 
 export default async function ArticlesPage() {
   const supabase = await createClient();
@@ -16,7 +15,6 @@ export default async function ArticlesPage() {
     <div className="flex flex-col gap-6 py-6">
       <h1 className="text-xl font-semibold text-acid">Articles</h1>
 
-      <RoleGate profile={profile} minRole="admin">
         <form action={createArticle} className="flex flex-col gap-3 rounded-lg border border-acidDim/30 bg-panel p-4">
           <h2 className="text-sm font-medium text-acidDim">New article</h2>
           <input
@@ -41,7 +39,6 @@ export default async function ArticlesPage() {
             Publish
           </button>
         </form>
-      </RoleGate>
 
       <div className="flex flex-col gap-4">
         {(articles as Article[] | null)?.length ? (
@@ -53,6 +50,14 @@ export default async function ArticlesPage() {
               )}
               <h3 className="text-lg font-medium text-ink">{article.title}</h3>
               <p className="mt-2 whitespace-pre-wrap text-sm text-acidDim">{article.body_richtext}</p>
+              {(profile?.id === article.author_id || hasRole(profile, 'admin')) && (
+                <form action={deleteArticle} className="mt-2">
+                  <input type="hidden" name="id" value={article.id} />
+                  <button type="submit" className="text-xs text-red-500 hover:text-red-600">
+                    Delete
+                  </button>
+                </form>
+              )}
             </article>
           ))
         ) : (

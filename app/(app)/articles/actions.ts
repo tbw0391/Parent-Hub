@@ -23,3 +23,18 @@ export async function createArticle(formData: FormData) {
   if (error) throw new Error(error.message);
   revalidatePath('/articles');
 }
+
+export async function deleteArticle(formData: FormData) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not signed in');
+
+  const id = String(formData.get('id') ?? '');
+  if (!id) throw new Error('Missing article');
+
+  const { error } = await supabase.from('articles').delete().eq('id', id);
+  if (error) throw new Error(error.message);
+  revalidatePath('/articles');
+}

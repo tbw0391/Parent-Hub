@@ -1,8 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
-import { getCurrentProfile } from '@/lib/auth';
-import { RoleGate } from '@/components/RoleGate';
+import { getCurrentProfile, hasRole } from '@/lib/auth';
 import type { TechRecommendation } from '@/lib/database.types';
-import { createTechRecommendation } from './actions';
+import { createTechRecommendation, deleteTechRecommendation } from './actions';
 
 export default async function TechnologyPage() {
   const supabase = await createClient();
@@ -20,7 +19,6 @@ export default async function TechnologyPage() {
         <p className="mt-2 text-sm text-acidDim">Apps and tools recommended for parents.</p>
       </div>
 
-      <RoleGate profile={profile} minRole="admin">
         <form
           action={createTechRecommendation}
           className="flex flex-col gap-3 rounded-lg border border-acidDim/30 bg-panel p-4"
@@ -57,7 +55,6 @@ export default async function TechnologyPage() {
             Recommend
           </button>
         </form>
-      </RoleGate>
 
       <div className="flex flex-col gap-3">
         {apps.length ? (
@@ -79,6 +76,14 @@ export default async function TechnologyPage() {
                 >
                   Open →
                 </a>
+              )}
+              {(profile?.id === app.author_id || hasRole(profile, 'admin')) && (
+                <form action={deleteTechRecommendation} className="mt-2">
+                  <input type="hidden" name="id" value={app.id} />
+                  <button type="submit" className="text-xs text-red-500 hover:text-red-600">
+                    Delete
+                  </button>
+                </form>
               )}
             </div>
           ))

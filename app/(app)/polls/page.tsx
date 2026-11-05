@@ -1,6 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
 import { getCurrentProfile, hasRole } from '@/lib/auth';
-import { RoleGate } from '@/components/RoleGate';
 import type { Poll, PollOption, PollVote, Profile } from '@/lib/database.types';
 import { createPoll, castVote, setPollClosed, deletePoll } from './actions';
 
@@ -36,7 +35,6 @@ export default async function PollsPage() {
     <div className="flex flex-col gap-6 py-6">
       <h1 className="text-xl font-semibold text-acid">Polls</h1>
 
-      <RoleGate profile={profile} minRole="power_user">
         <form action={createPoll} className="flex flex-col gap-3 rounded-lg border border-acidDim/30 bg-panel p-4">
           <h2 className="text-sm font-medium text-acidDim">New poll</h2>
           <input
@@ -62,7 +60,6 @@ export default async function PollsPage() {
             Create poll
           </button>
         </form>
-      </RoleGate>
 
       <div className="flex flex-col gap-4">
         {(polls as Poll[] | null)?.length ? (
